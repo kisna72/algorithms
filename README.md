@@ -1,4 +1,4 @@
-# Practice various algorithms
+# Puzzles and algorithms
 
 Inspired by [Build your own X](https://github.com/danistefanovic/build-your-own-x)
 
