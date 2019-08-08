@@ -14,25 +14,61 @@ function perfectRandGenerator(k){
     return Math.floor(Math.random() * k) 
 }
 
-function shuffler(){
+function shuffler(n){
     // Given a deck, choose two random cards and shuffle. 
-    const emptyArr = new Array(52).fill(0);
+    if(!n){
+        n = 52
+    }
+    const emptyArr = new Array(n).fill(0);
     const deck = emptyArr.map((a,i) => i+1);
-    console.log(deck);
+    // console.log(deck);
 
     // Lets shuffle 52 times.
     emptyArr.forEach((v,i)=>{
-        const a = perfectRandGenerator(52);
-        const b = perfectRandGenerator(52);
+        const a = perfectRandGenerator(n);
+        const b = perfectRandGenerator(n);
         // Shuffle. 
         const temp = deck[a]
         deck[a] = deck[b]; 
         deck[b] = temp; 
     })
-
-    console.log(deck)
+    //console.log(deck)
+    return deck
 
 }
 
-console.log(perfectRandGenerator(52))
-shuffler()
+function verifyEqualProbability(n){
+    // Run shuffler 1 million times.
+    console.log("verifying ")
+    let probs = new Array(n).fill([])
+    console.log(probs)
+    for(let i=0;i<n;i++){
+        probs[i] =  new Array(n).fill(0)
+    }
+    //console.log(probs)
+    //const probs = [[0,0,0],[0,0,0],[0,0,0]]
+    for (let i=0; i < 100000; i++){
+        // Each time we do the shuffle, and add 
+        //console.log(i);
+        deck = shuffler(n);
+        //console.log(deck)
+        deck.forEach((item,index)=> {
+            // if [3,2,1], that means, deck[0][3-1] gets a +1,  deck[1][2-1] gets a +1, deck[2][1-1] gets a +1
+            probs[index][item-1] += 1 
+        })
+        
+    }
+    //console.log(probs)
+    let windex = 0 //which index?? 
+    const sum = probs[windex].reduce((a,b)=>a+b,0)
+   // console.log(probs[windex])
+    //.log(sum)
+    const probabilities = probs[windex].map((v,i) => v/sum )
+    console.log(probabilities)
+    //console.log( probs[windex][0] /(sum) , probs[windex][1] /(sum) , probs[windex][2] /(sum) ) 
+}
+
+
+//console.log(perfectRandGenerator(3))
+//shuffler(3)
+verifyEqualProbability(52)
