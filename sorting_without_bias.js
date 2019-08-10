@@ -51,10 +51,11 @@ function shuffler(n){
     /*
         Technique 3 -> Creates Bias. 0 has highest probability of being at 0. 1 has highest probability of being at 1. 
         No bias if number of times shuffled is much higher than n itself. 
-        The Bias comes from the fact that there is higher chance of a card not being picked than being picked. 
-        If n= 3, and we are randomly picking 2 numbers between 0-2 and 0-2. 
-        Loop Invariant says -> at each index, we get two numbers that are equally probable
-        We swap cards at those indices. 
+        Why?
+        My guess is that its equally likely to get picked, but also there is the other end of equation where there is a
+        chance that it'll get put right back in. 
+        eg: 0 has equal 1/n of getting picked each time but also 1/n probability of getting put back in. 
+        Maybe ?? 
     */
     
     // for(let i = 0; i < n; i++){
