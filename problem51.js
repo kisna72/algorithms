@@ -23,15 +23,24 @@ function shuffler(n){
     const deck = emptyArr.map((a,i) => i+1);
     // console.log(deck);
 
-    // Lets shuffle 52 times. Technique 1 -> Works fine:
-    // for (let i=0; i<n;i++){
-    //     const j = i + perfectRandGenerator(n-i);
-    //     const temp = deck[i]
-    //     deck[i] = deck[j];
-    //     deck[j] = temp; 
-    // }
+    /*
+        Technique 1: Doesn't create any bias 
+        Loop Invariant here: Each array[0:i] for each index is perfectly random. 
+    */
 
-    // // Technique 2 -> Creates Bias
+    for (let i=0; i<n;i++){
+        const j = i + perfectRandGenerator(n-i); // Any number from index to the n
+        const temp = deck[i]
+        deck[i] = deck[j];
+        deck[j] = temp; 
+    }
+
+    /* 
+        Technique 2 -> Creates Bias 
+        In case of 3 elements in an array, we have 6 different ways of representing the combination.
+        But the aglorithm runs 
+    */
+
     // for (let i=0; i<n;i++){
     //     const j = perfectRandGenerator(n);
     //     const temp = deck[i]
@@ -39,15 +48,40 @@ function shuffler(n){
     //     deck[j] = temp; 
     // }
 
-    // Technique 2 -> Creates Bias. 0 has highest probability of being at 0. 1 has highest probability of being at 1. 
-    // The Bias comes from 
-    for(let i = 0; i< n; i++){
-        const a = perfectRandGenerator(n);
-        const b = perfectRandGenerator(n); 
-        const temp = deck[a];
-        deck[a] = deck[b];
-        deck[b] = temp;
-    }
+    /*
+        Technique 3 -> Creates Bias. 0 has highest probability of being at 0. 1 has highest probability of being at 1. 
+        No bias if number of times shuffled is much higher than n itself. 
+        The Bias comes from the fact that there is higher chance of a card not being picked than being picked. 
+        If n= 3, and we are randomly picking 2 numbers between 0-2 and 0-2. 
+        Loop Invariant says -> at each index, we get two numbers that are equally probable
+        We swap cards at those indices. 
+    */
+    
+    // for(let i = 0; i < n; i++){
+    //     const a = perfectRandGenerator(n);
+    //     const b = perfectRandGenerator(n); 
+    //     // console.log(a,b)
+    //     const temp = deck[a];
+    //     deck[a] = deck[b];
+    //     deck[b] = temp;
+    // }
+    
+    /*
+        Technique 4 -> Very similar to technique 1. 
+        pick a random number from the deck, and add it to the shuffled array. 
+        Keep doing it until there is no more left in the deck. 
+
+    */
+
+    // const shuffled_deck = [] 
+    // while(deck.length > 0){
+    //     const a = perfectRandGenerator(deck.length);
+    //     shuffled_deck.push(deck[a]);
+    //     deck.splice(a,1);
+    // }
+    
+    // return shuffled_deck
+    
 
     return deck
 
@@ -75,7 +109,7 @@ function verifyEqualProbability(n){
         
     }
     //console.log(probs)
-    let windex = 0 //which index?? 
+    let windex = 1 //which index?? 
     const sum = probs[windex].reduce((a,b)=>a+b,0)
    // console.log(probs[windex])
     //.log(sum)
