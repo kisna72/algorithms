@@ -23,16 +23,32 @@ function shuffler(n){
     const deck = emptyArr.map((a,i) => i+1);
     // console.log(deck);
 
-    // Lets shuffle 52 times.
-    emptyArr.forEach((v,i)=>{
+    // Lets shuffle 52 times. Technique 1 -> Works fine:
+    // for (let i=0; i<n;i++){
+    //     const j = i + perfectRandGenerator(n-i);
+    //     const temp = deck[i]
+    //     deck[i] = deck[j];
+    //     deck[j] = temp; 
+    // }
+
+    // // Technique 2 -> Creates Bias
+    // for (let i=0; i<n;i++){
+    //     const j = perfectRandGenerator(n);
+    //     const temp = deck[i]
+    //     deck[i] = deck[j];
+    //     deck[j] = temp; 
+    // }
+
+    // Technique 2 -> Creates Bias. 0 has highest probability of being at 0. 1 has highest probability of being at 1. 
+    // The Bias comes from 
+    for(let i = 0; i< n; i++){
         const a = perfectRandGenerator(n);
-        const b = perfectRandGenerator(n);
-        // Shuffle. 
-        const temp = deck[a]
-        deck[a] = deck[b]; 
-        deck[b] = temp; 
-    })
-    //console.log(deck)
+        const b = perfectRandGenerator(n); 
+        const temp = deck[a];
+        deck[a] = deck[b];
+        deck[b] = temp;
+    }
+
     return deck
 
 }
@@ -51,7 +67,7 @@ function verifyEqualProbability(n){
         // Each time we do the shuffle, and add 
         //console.log(i);
         deck = shuffler(n);
-        //console.log(deck)
+        // console.log(deck)
         deck.forEach((item,index)=> {
             // if [3,2,1], that means, deck[0][3-1] gets a +1,  deck[1][2-1] gets a +1, deck[2][1-1] gets a +1
             probs[index][item-1] += 1 
@@ -63,7 +79,10 @@ function verifyEqualProbability(n){
     const sum = probs[windex].reduce((a,b)=>a+b,0)
    // console.log(probs[windex])
     //.log(sum)
-    const probabilities = probs[windex].map((v,i) => v/sum )
+    const probabilities = probs[windex].map((v,i) => {
+        console.log(v)
+        return v/sum
+    })
     console.log(probabilities)
     //console.log( probs[windex][0] /(sum) , probs[windex][1] /(sum) , probs[windex][2] /(sum) ) 
 }
@@ -71,4 +90,4 @@ function verifyEqualProbability(n){
 
 //console.log(perfectRandGenerator(3))
 //shuffler(3)
-verifyEqualProbability(52)
+verifyEqualProbability(10)
