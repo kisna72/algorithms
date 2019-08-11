@@ -11,14 +11,29 @@ const undirected_graph = {
     3:[4,1]
 }
 
-function randomUndirectedGraphGenerator(){
-    // FUture   
+
+function matrixToGraph(){
+    // Easier to operate on dict so converts incoming adjacency matrix to dict. 
+    // Future TODO
 }
 
 /*
 We want to make sure that no two adjacent vertices share the same color using 3 colors. 
 */
 
-function canVertexBeUniquelyColored(n){
+function canVertexBeUniquelyColored(graph, k){
+    // Basically ...  We want to Take a Node, and check how many adjacent nodes are there. If number of adjacent nodes + 1 > k its impossible. 
+    const keys = Object.keys(graph);
+    for(let i = 0; i< keys.length; i++){
+        const key = keys[i]
+        const nodes = graph[key]
+        if(nodes.length > k){
+            return false
+        }
+    }
+    
+
     return true
 }
+
+console.log(canVertexBeUniquelyColored(undirected_graph, 1));
