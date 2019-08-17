@@ -1,8 +1,13 @@
-/* Back to back swe method
+/* 
 
 What is the fundamental choice we are making? -> Deciding where to put the knight next out of 8 max possible places. 
-Many of the places may be out of bounds. 
-Once placed, we want to make sure that it has already not been placed.
+
+What are the constraints? 
+- Cannot be out of bounds
+- The cell must not have been toured before. 
+
+When to return with first successful solution?
+- If the number of placements equals number of available cells, we return.
 
 */
 
@@ -42,6 +47,7 @@ function knightTour(placements, x_cur,y_cur){
         console.log(placements);
         numSols += 1; 
         console.log(`Solution Number ${numSols}`)
+        // If we want to explore all solutions, we remove the 
         return placements
         //break;
         //return placements;
@@ -76,8 +82,8 @@ function knightTour(placements, x_cur,y_cur){
             // console.log(placements)
             // console.log(newPlacements);
             // break
-            const ps = knightTour(newPlacements, x_next,y_next);
-            if(ps) { 
+            const completePlacements = knightTour(newPlacements, x_next,y_next); //Return true if placement complete or returns false 
+            if(completePlacements) { 
                 return ps 
             }
             
