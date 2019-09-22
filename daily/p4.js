@@ -40,7 +40,9 @@ function lowestPosInt(arr){
     }
     /**
      * Question has a hint that says you can modify the array in place ... 
-     */
+     * Instead of using set, we can basically iterate over the array, for each item, swap it with appropriate 
+     * /
+
 }
 
 console.log(lowestPosInt(arr))
